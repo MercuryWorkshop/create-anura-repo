@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple utility to create an anura repo.",
   "bin": {
-    "create-anura-repo": "./index.js"
+    "create-anura-repo": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
