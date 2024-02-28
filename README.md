@@ -1,2 +1,5 @@
 # create-anura-repo
-A simple app used to create an Anura repo.
+A simple utility used to create an Anura repo.
+```bash
+$ npx create-anura-repo
+```

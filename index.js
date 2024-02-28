@@ -5,23 +5,31 @@ import path from 'path';
 import inquirer from 'inquirer';
 
 (async () => {
-  const manifestData = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'maintainerName',
-      message: 'Enter maintainer name:'
-    },
-    {
-      type: 'input',
-      name: 'maintainerEmail',
-      message: 'Enter maintainer email:'
-    },
-    {
-      type: 'input',
-      name: 'maintainerWebsite',
-      message: 'Enter maintainer website:'
-    }
-  ]);
+  let directory = process.cwd()
+  let manifest;
+  if (!fs.existsSync(path.join(directory, 'manifest.json'))) {
+    manifest = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Enter maintainer name:'
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: 'Enter maintainer email:'
+      },
+      {
+        type: 'input',
+        name: 'website',
+        message: 'Enter maintainer website:'
+      }
+    ]);
+  } else {
+    const manifestPath = path.join(directory, 'manifest.json');
+    let json = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+    manifest = json.maintainer;
+  }
 
   const version = "2.0.0";
   const result = { apps: [], libs: [] };
@@ -52,22 +60,21 @@ import inquirer from 'inquirer';
       }
     });
   };
-  let directory = process.cwd()
-  readDirectories(directory + '/apps', result.apps);
-  readDirectories(directory + '/libs', result.libs);
+  readDirectories(path.join(directory, 'apps'), result.apps);
+  readDirectories(path.join(directory, 'libs'), result.libs);
 
   const listJSON = JSON.stringify(result, null, 2);
-  fs.writeFileSync('list.json', listJSON);
+  fs.writeFileSync(path.join(directory, 'list.json'), listJSON);
 
   const manifestJSON = JSON.stringify({
     maintainer: {
-      name: manifestData.maintainerName,
-      email: manifestData.maintainerEmail,
-      website: manifestData.maintainerWebsite
+      name: manifest.name,
+      email: manifest.email,
+      website: manifest.website
     },
     version
   }, null, 2);
-  fs.writeFileSync('manifest.json', manifestJSON);
+  fs.writeFileSync(path.join(directory, 'manifest.json'), manifestJSON);
 
   console.log('Anura repo successfully created!');
 })();
