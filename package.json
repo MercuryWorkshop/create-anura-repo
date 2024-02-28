@@ -1,0 +1,25 @@
+{
+  "name": "create-anura-repo",
+  "version": "1.0.0",
+  "description": "A simple utility to create an anura repo.",
+  "bin": {
+    "create-anura-repo": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MercuryWorkshop/create-anura-repo.git"
+  },
+  "author": "",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/MercuryWorkshop/create-anura-repo/issues"
+  },
+  "homepage": "https://github.com/MercuryWorkshop/create-anura-repo#readme",
+  "type": "module",
+  "dependencies": {
+    "inquirer": "^9.2.15"
+  }
+}
