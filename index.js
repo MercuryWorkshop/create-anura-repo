@@ -52,9 +52,9 @@ import inquirer from 'inquirer';
       }
     });
   };
-
-  readDirectories(path.join(new URL(import.meta.url).pathname, '../apps'), result.apps);
-  readDirectories(path.join(new URL(import.meta.url).pathname, '../libs'), result.libs);
+  let directory = process.cwd()
+  readDirectories(directory + '/apps', result.apps);
+  readDirectories(directory + '/libs', result.libs);
 
   const listJSON = JSON.stringify(result, null, 2);
   fs.writeFileSync('list.json', listJSON);
