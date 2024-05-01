@@ -34,14 +34,14 @@ if (!fs.existsSync(path.join(directory, 'manifest.json'))) {
   let json = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
   manifest = json;
   if (manifest.version == "2.0.0") {
-    repoName = await inquirer.prompt([
+    let repoName = await inquirer.prompt([
       {
         type: 'input',
         name: 'name',
         message: 'Enter repository name:'
       }
     ]);
-    repoName.name = manifest.name;
+    manifest.name = repoName.name;
   }
 }
 
